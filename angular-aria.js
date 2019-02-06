@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.7.7
+ * @license AngularJS v1.7.6-local+sha.08712cf30
  * (c) 2010-2018 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -63,7 +63,7 @@
 var ARIA_DISABLE_ATTR = 'ngAriaDisable';
 
 var ngAriaModule = angular.module('ngAria', ['ng']).
-                        info({ angularVersion: '1.7.7' }).
+                        info({ angularVersion: '1.7.6-local+sha.08712cf30' }).
                         provider('$aria', $AriaProvider);
 
 /**
@@ -392,8 +392,10 @@ ngAriaModule.directive('ngShow', ['$aria', function($aria) {
           if ($aria.config('bindKeydown') && !attr.ngKeydown && !attr.ngKeypress && !attr.ngKeyup) {
             elem.on('keydown', function(event) {
               var keyCode = event.which || event.keyCode;
+              // Ignore modified keypress to avoid conflict with system level shortcuts
+              var mod = event.metaKey || event.altKey || event.ctrlKey;
 
-              if (keyCode === 13 || keyCode === 32) {
+              if ((keyCode === 13 || keyCode === 32) && !mod) {
                 // If the event is triggered on a non-interactive element ...
                 if (nodeBlackList.indexOf(event.target.nodeName) === -1 && !event.target.isContentEditable) {
                   // ... prevent the default browser behavior (e.g. scrolling when pressing spacebar)
