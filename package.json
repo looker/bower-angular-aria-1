@@ -27,7 +27,9 @@
   "jspm": {
     "shim": {
       "angular-aria": {
-        "deps": ["angular"]
+        "deps": [
+          "angular"
+        ]
       }
     }
   }
